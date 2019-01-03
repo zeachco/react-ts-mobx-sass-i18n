@@ -2,21 +2,22 @@ import autobind from 'autobind-decorator'
 import { observable } from 'mobx'
 
 const languages = {
+    pr: 'Pirate',
     en: 'English',
     fr: 'Français',
     es: 'Español',
     jp: '日本',
-    // rs: '日本'
 }
 
 const languages_short = {
+    pr_short: '☠',
     en_short: 'En',
     fr_short: 'Fr',
     es_short: 'Es',
     jp_short: '日本'
 }
 
-export type ILanguagesCode = 'en' | 'fr' | 'sp' | 'jp';
+export type ILanguagesCode = 'en' | 'fr' | 'sp' | 'jp' | 'pr';
 
 @autobind
 export class I18n {
@@ -36,6 +37,20 @@ export class I18n {
     }
 
     public async load(key: ILanguagesCode) {
+        if (key === 'pr') {
+            for (const key in this.strings) {
+                if (this.strings.hasOwnProperty(key)) {
+                    this.strings[key] = 'Arrrrrgggggggg!';
+                }
+            }
+            this.strings = {
+                ...this.strings,
+                ...languages,
+                ...languages_short
+            };
+            this.language = key;
+            return;
+        }
         try {
             const res = await fetch(`/lang/${key}.json`);
             const json = await res.json();
@@ -46,7 +61,7 @@ export class I18n {
                 ...languages_short
             };
 
-            this.language = key as ILanguagesCode;
+            this.language = key;
         } catch (err) {
             console.error(err);
             alert('could not change language');

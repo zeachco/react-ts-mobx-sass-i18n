@@ -1,15 +1,11 @@
-import React, { Component, MouseEvent } from 'react';
+import React, { Component } from 'react';
 import { observer } from 'mobx-react'
 
 import logo from './logo.svg';
 import './App.scss';
 import { app } from './models/App';
-import { l, ILanguagesCode } from './models/I18n';
-
-const handleLangChange = (lang: ILanguagesCode) => (e: MouseEvent) => {
-  e.preventDefault();
-  app.i18n.load(lang);
-}
+import { l } from './models/I18n';
+import { LanguageSelector } from './components/LanguagesSelector';
 
 app.i18n.load('fr')
 
@@ -29,13 +25,7 @@ class App extends Component {
           >
             {l('app_title')}
           </a>
-          <div className="languages">
-            {app.i18n.supportedLanguages.map((lang) => (
-              <a key={lang} href={"#" + lang} onClick={handleLangChange(lang)}>
-                {l(lang)}
-              </a>
-            ))}
-          </div>
+          <LanguageSelector />
         </header>
       </div>
     );
