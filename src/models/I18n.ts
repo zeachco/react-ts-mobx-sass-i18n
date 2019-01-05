@@ -19,12 +19,18 @@ const languages_short = {
 
 export type ILanguagesCode = 'en' | 'fr' | 'sp' | 'jp' | 'pr';
 
+interface ICache { 
+    [key: string]: {
+        [key: string]: string 
+    }
+}
+
 @autobind
 export class I18n {
-    private cache: { [key: string]: { [key: string]: string } } = {};
     private defaultLanguage: ILanguagesCode = 'en';
-
+    @observable private cache: ICache = {};
     @observable private strings: { [key: string]: string } = {};
+
     @observable public language: ILanguagesCode = 'fr';
     @observable public supportedLanguages: ILanguagesCode[] = Object.keys(languages) as ILanguagesCode[];
 
@@ -54,7 +60,7 @@ export class I18n {
         try {
             const res = await fetch(`/lang/${key}.json`);
             const json = await res.json();
-
+            this.cache[key] = json;
             this.strings = {
                 ...json,
                 ...languages,

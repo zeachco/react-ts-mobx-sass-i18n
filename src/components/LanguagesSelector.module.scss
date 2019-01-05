@@ -1,0 +1,18 @@
+.languages {
+    position: fixed;
+    bottom: 1em;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    flex-wrap: wrap;
+
+    font-size: .75em;
+
+    a {
+        margin: auto;
+        padding: .5em;
+        min-width: 5em;
+    }
+}

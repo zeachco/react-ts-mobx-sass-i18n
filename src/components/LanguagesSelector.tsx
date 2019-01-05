@@ -2,6 +2,7 @@ import React, { MouseEvent } from 'react';
 
 import { app } from '../models/App'
 import { ILanguagesCode, l } from '../models/I18n';
+import style from './LanguagesSelector.module.scss';
 
 const handleLangChange = (lang: ILanguagesCode) => (e: MouseEvent) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ interface IProps {
 export const LanguageSelector: React.SFC<IProps> = ({
     short = false
 }) => (
-    <div className="languages">
+    <div className={style.languages}>
         {
             app.i18n.supportedLanguages.map((lang) => (
                 <a key={lang} href={"#" + lang} onClick={handleLangChange(lang)} title={l(lang)}>

@@ -31,19 +31,3 @@
     transform: rotate(360deg);
   }
 }
-
-.languages {
-  position: fixed;
-  bottom: 1em;
-  width: 100vw;
-
-  display: flex;
-  flex-direction: row;
-  align-content: space-between;
-  flex-wrap: wrap;
-
-  a {
-    margin: auto;
-    padding: 1em;
-  }
-}
